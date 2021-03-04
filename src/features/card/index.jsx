@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Rating from "./rating";
 import s from "./Card.module.scss";
 
 export default function Card({ product }) {
+  const [sold, setSold] = useState(false);
+
+  const onclick = () => {
+    setSold((prev) => !prev);
+  };
+
   return (
     <div className={s.wrap}>
       <div className={s.picture}>
@@ -11,7 +18,8 @@ export default function Card({ product }) {
           alt={product.name || "name"}
         />
         <div className={s.btnWrap}>
-          <button>Add to Cart</button>
+          {!sold && <button onClick={onclick}>Add to Cart</button>}
+          {sold && <button>SOLD</button>}
         </div>
       </div>
       <h1>{product.name || "Title"}</h1>
